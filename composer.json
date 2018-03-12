@@ -1,0 +1,13 @@
+{
+    "description": "",
+    "name": "test/test",
+    "require": {
+        "yiisoft/yii2-app-basic": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "killLogic",
+            "email": "Serg41-lineage@mail.ru"
+        }
+    ]
+}
