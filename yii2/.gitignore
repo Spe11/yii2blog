@@ -31,10 +31,3 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
-
-/yii
-/web/.htaccess
-/web/index.php
-/web/index-test.php
-/config/db.php
-/config/params.php
