@@ -4,7 +4,6 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 
-
 class Image extends Model {
     public $path;
     public $image;
@@ -37,7 +36,15 @@ class Image extends Model {
         }
     }
 
-    public function upload($file, $article) { 
+    private function createDir() {
+        $uploads = Yii::getAlias('@webroot').'/uploads';
+        if (!file_exists($uploads)) {
+            mkdir($uploads);
+        }
+    }
+
+    public function upload($file, $article) {
+        $this->createDir();
         $this->deleteExisted($article);
         $name = $this->generateName($file);
         $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$name);
