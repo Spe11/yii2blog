@@ -13,8 +13,8 @@ use yii\widgets\LinkPager;
 <h2><?=Html::encode($article->title)?></h2>
 <div class="metadata">
   <ul>
-    <li>Автор: <?= Html::a(Html::encode($article->author->username), Url::to(['posts/user', 'id' => $article->author->username])); ?></li>
-    <li>Категория: <?= Html::a(Html::encode($article->category0->name), Url::to(['posts/category/', 'id' => $article->category0->name])); ?></li>
+    <li>Автор: <?= Html::a(Html::encode($article->author->username), Url::to(['articles/user', 'id' => $article->author->username])); ?></li>
+    <li>Категория: <?= Html::a(Html::encode($article->category0->name), Url::to(['articles/category/', 'id' => $article->category0->name])); ?></li>
     <li>Просмотров: <?= Html::encode($article->hits); ?></li>
   </ul>
 </div>

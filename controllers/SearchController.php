@@ -30,7 +30,7 @@ class SearchController extends Controller
 
     private function articlesByWord($word) {
         $query = Article::find()->where(['like', 'title', $word, false])->
-        orWhere(['like', 'content', $word, false]);
+        orWhere(['like', 'content', $word, false])->orderBy(['date' =>SORT_DESC]);
         $this->initPages($query);
         return $this->render('@app/views/articles/articles', 
             ['articles' => $this->articles, 'pages' => $this->pages]);

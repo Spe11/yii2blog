@@ -61,7 +61,7 @@ BlogAsset::register($this);
       <ul>
         <? foreach($this->params['categories'] as $category) { ?>
           <li>
-          <?= Html::a(HTML::encode($category->name), Url::to(['posts/category/', 'id' =>$category->name])); ?>
+          <?= Html::a(HTML::encode($category->name), Url::to(['articles/category/', 'id' =>$category->name])); ?>
             </li>
           <?  } ?>
       </ul>

@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\web\Response;
 use app\models\Article;
 use app\models\Commentary;
+use app\models\User;
+use app\models\Category;
 use app\components\LayoutInit;
 use app\components\Pages;
 
@@ -50,7 +52,18 @@ class ArticlesController extends Controller
 
     public function actionArchive($month, $year)
     {
-       return $this->articleByDate($month, $year);
+       return $this->articlesByDate($month, $year);
+    }
+
+    public function actionCategory($id = null) {
+        $category = Category::findOne(['name' => $id]);
+
+        return $this->articlesByCategory($category);
+    }
+
+    public function actionUser($id = null) {
+        $user = User::findOne(['username' => $id]);
+        return $this->articlesByUser($user);
     }
 
     private function addComment() {
@@ -69,17 +82,32 @@ class ArticlesController extends Controller
     }
 
     private function allArticles() {
-        $articles = Article::find();
+        $articles = Article::find()->orderBy(['date' =>SORT_DESC]);
         $this->initPages($articles);
         return $this->render('articles', ['articles' => $this->articles, 
             'pages' => $this->pages]);
     }
 
-    private function articleByDate($month, $year) {
+    private function articlesByDate($month, $year) {
         $month = Yii::$app->months->IdByName($month);
-        $articless = Article::find()->where("MONTH(`date`) = $month AND YEAR(`date`) = $year");
+        $articless = Article::find()->where("MONTH(`date`) = $month AND YEAR(`date`) = $year")
+            ->orderBy(['date' =>SORT_DESC]);
         $this->initPages($articless);
         return $this->render('articles', ['articles' => $this->articles, 
             'pages' => $this->pages]);
+    }
+
+    private function articlesByCategory($category) {
+        $articles = Article::find()->where(['category' => $category])->orderBy(['date' =>SORT_DESC]);
+        $this->initPages($articles);
+        return $this->render('@app/views/articles/articles', 
+            ['articles' => $this->articles, 'pages' => $this->pages]);
+    }
+
+    private function articlesByUser($user) {
+        $articles = Article::find()->where(['author_id' => $user])->orderBy(['date' =>SORT_DESC]);
+        $this->initPages($articles);
+        return $this->render('@app/views/articles/articles', 
+            ['articles' => $this->articles, 'pages' => $this->pages]);
     }
 }

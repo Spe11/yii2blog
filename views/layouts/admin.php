@@ -30,6 +30,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    
     NavBar::begin([
         'brandLabel' => 'На главную',
         'brandUrl' => Yii::$app->homeUrl,

@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use app\models\Article;
-use app\models\User;
 use app\models\Category;
 use app\components\LayoutInit;
 use app\components\Pages;
@@ -37,14 +36,14 @@ class PostsController extends Controller {
     }
 
     private function articleByCategory($category) {
-        $articles = Article::find()->where(['category' => $category]);
+        $articles = Article::find()->where(['category' => $category])->orderBy(['date' =>SORT_DESC]);
         $this->initPages($articles);
         return $this->render('@app/views/articles/articles', 
             ['articles' => $this->articles, 'pages' => $this->pages]);
     }
 
     private function articleByUser($user) {
-        $articles = Article::find()->where(['author_id' => $author]);
+        $articles = Article::find()->where(['author_id' => $author])->orderBy(['date' =>SORT_DESC]);
         $this->initPages($articles);
         return $this->render('@app/views/articles/articles', 
             ['articles' => $this->articles, 'pages' => $this->pages]);

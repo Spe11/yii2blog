@@ -52,14 +52,14 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'articles/show/<id:\d+>' => 'articles/show',
-                'posts/category/<id:\w+>/<page:\d+>' => 'posts/category',
-                'posts/category/<id:\w+>' => 'posts/category',
-                'posts/user/<id:\w+>/<page:\d+>' => 'posts/user',
-                'posts/user/<id:\w+>' => 'posts/user',
                 'articles/all/<page:\d+>' => 'articles/all',
                 'articles/all' => 'articles/all',
                 'articles/archive/<year:\d{4}>/<month:\w+>/<page:\d+>' => 'articles/archive',
-                'articles/archive/<year:\d{4}>/<month:\w+>' => 'articles/archive'
+                'articles/archive/<year:\d{4}>/<month:\w+>' => 'articles/archive',
+                'articles/user/<id:\w+>/<page:\d+>' => 'articles/user',
+                'articles/user/<id:\w+>' => 'articles/user',
+                'articles/category/<id:\w+>/<page:\d+>' => 'articles/category',
+                'articles/category/<id:\w+>' => 'articles/category',
             ],
         ],
         'months' => [
