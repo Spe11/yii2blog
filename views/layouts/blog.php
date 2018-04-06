@@ -33,10 +33,10 @@ BlogAsset::register($this);
   else { ?>
  <div class="active">Вы вошли как: <?= Yii::$app->user->identity->username;
   if(Yii::$app->user->identity->username == 'admin') { ?>
-  <?=Html::a('Админ Панель', Url::to(['/admin'])) ?> |
+  <?=Html::a('Админ Панель', Url::to(['/admin'])) ?> 
+  <? } ?>|
  <?=Html::a('Выйти', ['login/logout'], ['data' => ['method' => 'post']]); ?>
 <? } ?></div>
-  <? } ?>
 </span></div>
 <div class="container">
   <header  class="clearfix">

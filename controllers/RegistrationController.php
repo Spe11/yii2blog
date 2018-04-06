@@ -8,6 +8,8 @@ use app\models\Authorization;
 
 class RegistrationController extends Controller 
 {
+    public $layout = 'signup';
+
     public function actionIndex() {
         $model = new Authorization;
         $model->scenario = Authorization::SCENARIO_REGISTER;

@@ -10,8 +10,8 @@ use yii\widgets\ActiveForm;
 <h2><a href="#"><?=Html::encode($article->title)?></a></h2>
 <div class="metadata">
   <ul>
-    <li>Автор: <?= Html::a(Html::encode($article->author->username), Url::to(['posts/user', 'id' => $articles->author->username]));?></a></li>
-    <li>Категория: <?= Html::a(Html::encode($article->category0->name), Url::to(['posts/category/', 'id' => $articles->category0->name])); ?></li>
+    <li>Автор: <?= Html::a(Html::encode($article->author->username), Url::to(['posts/user', 'id' => $article->author->username]));?></a></li>
+    <li>Категория: <?= Html::a(Html::encode($article->category0->name), Url::to(['posts/category/', 'id' => $article->category0->name])); ?></li>
     <li>Просмотров: <?= Html::encode($article->hits); ?></li>
   </ul>
 </div>
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
 <? foreach($commentaries as $commentary) { ?>
   Автор: <?= Html::encode($commentary->author->username); ?>
   <p> Дата: <?= Html::encode($commentary->date); ?>
-  <p> <?= HtmlPurifier::process($commentary->commentary) ?>
+  <p><b> <?= HtmlPurifier::process($commentary->commentary) ?></b>
   <hr>
 <? } ?>
 <? if(!Yii::$app->user->isGuest) {

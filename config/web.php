@@ -15,7 +15,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ufqtuTPkVOhsTZ_l2FSkr1tn6ud0UJOu',
-            'baseUrl' => '/yii2blog',     
+            'baseUrl' => '/yii2blog',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -25,7 +25,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'articles/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

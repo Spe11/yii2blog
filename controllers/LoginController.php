@@ -10,7 +10,7 @@ use app\models\Authorization;
 
 class LoginController extends Controller
 {
-    public $layout ='admin';
+    public $layout ='signup';
 
     public function behaviors()
     {
