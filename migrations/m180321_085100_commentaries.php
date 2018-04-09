@@ -32,7 +32,7 @@ class m180321_085100_commentaries extends Migration
             'author_id' => $this->integer(),
             'article' => $this->integer(),
             'commentary' => $this->string(1000),
-            'date' => $this->date("Y-m-d H:i:s")
+            'date' => $this->dateTime("Y-m-d H:i:s")
         ]);
     }
  

@@ -32,8 +32,8 @@ class Commentary extends \yii\db\ActiveRecord
     {
         return [
             [['author_id', 'article'], 'integer'],
-            [['date'], 'date', 'format' => 'php:Y-m-d'],
-            [['date'], 'default', 'value' => date('Y-m-d')],
+            [['date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
+            [['date'], 'default', 'value' => date('Y-m-d H:i:s')],
             [['commentary'], 'string', 'max' => 1000],
             [['article'], 'exist', 'skipOnError' => true, 'targetClass' => Article::className(), 'targetAttribute' => ['article' => 'id']],
         ];

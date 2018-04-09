@@ -38,11 +38,11 @@ class ArticlesController extends Controller
     }
 
     public function actionShow() { 
-        $this->addComment();
+        $commentary = new Commentary;
+        $this->addComment($commentary);
 
         $id = Yii::$app->request->get('id');
-
-        return $this->articleById($id);
+        return $this->articleById($id, $commentary);
     }
 
     public function actionAll()
@@ -66,23 +66,22 @@ class ArticlesController extends Controller
         return $this->articlesByUser($user);
     }
 
-    private function addComment() {
+    private function addComment($commentary) {
         $commentary = new Commentary;
         if ($commentary->load(Yii::$app->request->post()) && $commentary->save()) {
             return $this->refresh();
         }
     }
 
-    private function articleById($id) {
+    private function articleById($id, $commentary) {
         $article = Article::find()->where(['id' => $id])->one();
         $commentaries = $article->commentaries;
-        $article->updateCounters(['hits' => 1]);
         return $this->render('article', ['article' =>  $article, 
             'comment' => $commentary, 'commentaries' => $commentaries]);
     }
 
     private function allArticles() {
-        $articles = Article::find()->orderBy(['date' =>SORT_DESC]);
+        $articles = Article::find()->orderBy(['id' =>SORT_DESC]);
         $this->initPages($articles);
         return $this->render('articles', ['articles' => $this->articles, 
             'pages' => $this->pages]);
@@ -91,21 +90,21 @@ class ArticlesController extends Controller
     private function articlesByDate($month, $year) {
         $month = Yii::$app->months->IdByName($month);
         $articless = Article::find()->where("MONTH(`date`) = $month AND YEAR(`date`) = $year")
-            ->orderBy(['date' =>SORT_DESC]);
+            ->orderBy(['id' =>SORT_DESC]);
         $this->initPages($articless);
         return $this->render('articles', ['articles' => $this->articles, 
             'pages' => $this->pages]);
     }
 
     private function articlesByCategory($category) {
-        $articles = Article::find()->where(['category' => $category])->orderBy(['date' =>SORT_DESC]);
+        $articles = Article::find()->where(['category' => $category])->orderBy(['id' => SORT_DESC]);
         $this->initPages($articles);
         return $this->render('@app/views/articles/articles', 
             ['articles' => $this->articles, 'pages' => $this->pages]);
     }
 
     private function articlesByUser($user) {
-        $articles = Article::find()->where(['author_id' => $user])->orderBy(['date' =>SORT_DESC]);
+        $articles = Article::find()->where(['author_id' => $user])->orderBy(['id' => SORT_DESC]);
         $this->initPages($articles);
         return $this->render('@app/views/articles/articles', 
             ['articles' => $this->articles, 'pages' => $this->pages]);

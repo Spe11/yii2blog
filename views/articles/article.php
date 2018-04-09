@@ -12,7 +12,6 @@ use yii\widgets\ActiveForm;
   <ul>
     <li>Автор: <?= Html::a(Html::encode($article->author->username), Url::to(['articles/user', 'id' => $article->author->username]));?></a></li>
     <li>Категория: <?= Html::a(Html::encode($article->category0->name), Url::to(['articles/category/', 'id' => $article->category0->name])); ?></li>
-    <li>Просмотров: <?= Html::encode($article->hits); ?></li>
   </ul>
 </div>
 <div id = "image">
