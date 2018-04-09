@@ -11,13 +11,11 @@ use yii\widgets\ActiveForm;
 <div class="articles-form">
 
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]); ?>
 
-    <?= $form->field($model, 'content')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'content')->textarea(['rows' => 5, 'cols' => 5]); ?>
     
     <?= $form->field($model, 'author_id')->dropDownList($users); ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
 
     <?= $form->field($model, 'category')->dropDownList($categories); ?>
 

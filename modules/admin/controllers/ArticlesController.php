@@ -77,7 +77,7 @@ class ArticlesController extends Controller
         $categories = ArrayHelper::map($categories,'id','name');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $file = UploadedFile::getInstance($image, 'image');
-            $image->upload($file, $model);
+            if($file !== null) $image->upload($file, $model);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
