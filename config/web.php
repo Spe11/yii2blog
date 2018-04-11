@@ -16,6 +16,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ufqtuTPkVOhsTZ_l2FSkr1tn6ud0UJOu',
             'baseUrl' => '/yii2blog',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -60,6 +63,10 @@ $config = [
                 'articles/user/<id:\w+>' => 'articles/user',
                 'articles/category/<id:\w+>/<page:\d+>' => 'articles/category',
                 'articles/category/<id:\w+>' => 'articles/category',
+                'urlManager' => [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['api/article'],
+                ],
             ],
         ],
         'months' => [
@@ -68,13 +75,12 @@ $config = [
     ],
     'modules' => [
         'admin' => [
-            'class' => 'app\modules\admin\Module',
+            'class' => 'app\modules\admin\Module'
         ]
     ],
     'defaultRoute' => 'articles/all',
     'params' => $params,
 ];
-
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
