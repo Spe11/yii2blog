@@ -20,7 +20,7 @@ class AuthController extends Controller
         $model = new Auth();
         $model->load(Yii::$app->request->bodyParams, '');
         if ($token = $model->auth()) {
-            return $token;
+            return "access-token: ".$token;
         } else {
             return $model;
         }

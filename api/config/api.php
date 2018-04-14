@@ -12,6 +12,7 @@ $config = [
     ],
     'components' => [
         'request' => [
+            'cookieValidationKey' => 'ufqtuTPkVOhsTZ_l2FSkr1tn6ud0UJOu',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
@@ -43,6 +44,7 @@ $config = [
     'controllerNamespace' => 'api\\controllers',
     'params' => $params,
 ];
+
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';

@@ -25,7 +25,7 @@ class Auth extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Неверные данные');
             }
         }
     }
@@ -33,9 +33,11 @@ class Auth extends Model
     public function auth()
     {
         if ($this->validate()) {
-            $model = new User;
-            $model->token = \Yii::$app->security->generateRandomString();
-            return $token->save() ? $token : null;
+            $model = $this->getUser();
+            $token = \Yii::$app->security->generateRandomString();
+            $model->token = $token;
+            $model->save(false);
+            return $token;
         } else {
             return null;
         }
