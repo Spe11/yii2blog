@@ -36,5 +36,4 @@ class m180321_083542_addColumn extends Migration
     {
         $this->dropColumn('post', 'category');
     }
-   
 }
