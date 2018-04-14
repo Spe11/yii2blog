@@ -30,6 +30,7 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                'auth' => 'auth',
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'article'],
             ],
         ],

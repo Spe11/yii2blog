@@ -27,7 +27,7 @@ class m180414_153725_addtoken extends Migration
 
     public function up()
     {
-        $this->addColumn('users', 'token', string(255));
+        $this->addColumn('users', 'token',  $this->string(255));
     }
 
     public function down()
