@@ -35,7 +35,6 @@ class m180320_115349_articles extends Migration
             'content' => $this->string(2000),
             'author_id' => $this->integer(),
             'date' => $this->date("Y-m-d H:i:s"),
-            'hits' => $this->integer(),
             'picture' => $this->string(200)
         ]);
     }

@@ -8,6 +8,9 @@ use yii\web\Response;
 use yii\filters\auth\HttpBearerAuth;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
+use app\models\Article;
+use app\models\Image;
+use yii\helpers\Url;
 
 class ArticleController extends ActiveController
 {
@@ -31,28 +34,70 @@ class ArticleController extends ActiveController
              ],
          ];
         return $behaviors;
-    }   
+    }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        unset($actions['create']);
+        unset($actions['update']);
+        return $actions;
+    }
+
+    public function actionCreate()
+    {
+        $params = Yii::$app->request->getBodyParams();
+        $model = new Article;
+        $model->author_id = Yii::$app->user->id;
+        $model->title = $params['title'];
+        $model->content = $params['title'];
+        $model->date = $params['date'];
+        $model->category = $params['category'];
+        $image = new Image;
+        $image->uploadFromBase64($params['picture'], $model);
+        if ($model->save()) {
+            $response = Yii::$app->getResponse();
+            $response->setStatusCode(201);
+            $id = implode(',', array_values($model->getPrimaryKey(true)));
+            $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Ошибка создания');
+        }
+        return $model;
+    }
 
     public function actionUpdate()
     {
-        /* $model = $this->findModel();
-        if(Yii::$app->user->can('owner', ['model' => $model])) {
-            return 'yes';
+        if (!Yii::$app->user->can('manage', ['model' => $model])) {
+            throw  new ForbiddenHttpException('Запрещено');
         }
-        $model->load(Yii::$app->request->getBodyParams(), '');
-        if ($model->save() === false && !$model->hasErrors()) {
-            throw new ServerErrorHttpException('Failed to update the object for unknown reason.');
+        $params = Yii::$app->request->queryParams;
+        $id = $params['id'];
+        $model = Article::find(['id' => $id])->one();
+        $model->author_id = Yii::$app->user->id;
+        $model->title = $params['title'];
+        $model->content = $params['title'];
+        $model->date = $params['date'];
+        $model->category = $params['category'];
+        $image = new Image;
+        $image->uploadFromBase64($params['picture'], $model);
+        if ($model->save()) {
+            $response = Yii::$app->getResponse();
+            $response->setStatusCode(201);
+            $id = implode(',', array_values($model->getPrimaryKey(true)));
+            $response->getHeaders()->set('Location', Url::toRoute(['view', 'id' => $id], true));
+        } elseif (!$model->hasErrors()) {
+            throw new ServerErrorHttpException('Ошибка обновления');
         }
-        return $model; */
+        return $model;
     }
 
     public function checkAccess($action, $model = null, $params = [])
     {
-        if (in_array($action, ['update', 'delete'])) {
+        if ($action === 'delete') {
             if (!Yii::$app->user->can('manage', ['model' => $model])) {
-                throw  new ForbiddenHttpException('Forbidden.');
+                throw  new ForbiddenHttpException('Запрещено');
             }
         }
-        else return 'yes';
     }
 }

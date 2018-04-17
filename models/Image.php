@@ -9,7 +9,7 @@ class Image extends Model {
     public $image;
 
     public function __construct() {
-        $path = Yii::getAlias('@webroot').'/uploads/';
+        $this->path = Yii::getAlias('@app').'/web/uploads/';
     }
 
     public function rules()
@@ -30,16 +30,21 @@ class Image extends Model {
         return md5(uniqid($file->name)).'.'.$file->extension;
     }
 
+    private function generateNameFromBase64s($base64) {
+        $name = substr($base64, -10);
+        $extension = substr($base64, 11, 3);
+        return md5(uniqid($name)).'.'.$extension;
+    }
+
     private function deleteExisted($article) {
         if($article->picture !== null) {
-            unlink(Yii::getAlias('@webroot') . '/uploads/'. $article->picture);
+            unlink($this->path.$article->picture);
         }
     }
 
     private function createDir() {
-        $uploads = Yii::getAlias('@webroot').'/uploads';
-        if (!file_exists($uploads)) {
-            mkdir($uploads);
+        if (!file_exists($this->path)) {
+            mkdir($this->path);
         }
     }
 
@@ -47,8 +52,20 @@ class Image extends Model {
         $this->createDir();
         $this->deleteExisted($article);
         $name = $this->generateName($file);
-        $file->saveAs(Yii::getAlias('@webroot').'/uploads/'.$name);
+        $file->saveAs($this->path.$name);
         $article->picture = $name;
-        $f = $article->save();
+        $article->save(false);
+    }
+
+    public function uploadFromBase64($base64, $article) {
+        $this->createDir();
+        $this->deleteExisted($article);
+        $name = $this->generateNameFromBase64s($base64);
+        $file = fopen($this->path.$name, 'wb');
+        $data = explode(',', $base64);
+        fwrite($file, base64_decode($data[1]));
+        fclose($file);
+        $article->picture = $name;
+        $article->save(false);
     }
 }
