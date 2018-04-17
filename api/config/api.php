@@ -11,6 +11,9 @@ $config = [
         '@app' => dirname(dirname(__DIR__)),
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager'
+        ],
         'request' => [
             'cookieValidationKey' => 'ufqtuTPkVOhsTZ_l2FSkr1tn6ud0UJOu',
             'parsers' => [
