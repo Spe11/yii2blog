@@ -5,5 +5,5 @@ Options FollowSymlinks
  
 RewriteEngine On
  
-RewriteCond %{REQUEST_URI} ^/(yii2blog)
+RewriteCond %{REQUEST_URI} ^/
 RewriteRule ^(\/?.*)$ /web/$1 [L]
