@@ -49,10 +49,7 @@ class ArticleController extends ActiveController
         $params = Yii::$app->request->getBodyParams();
         $model = new Article;
         $model->author_id = Yii::$app->user->id;
-        $model->title = $params['title'];
-        $model->content = $params['title'];
-        $model->date = $params['date'];
-        $model->category = $params['category'];
+        $model->load(Yii::$app->getRequest()->getBodyParams(), '');
         $image = new Image;
         $image->uploadFromBase64($params['picture'], $model);
         if ($model->save()) {
@@ -68,17 +65,14 @@ class ArticleController extends ActiveController
 
     public function actionUpdate()
     {
-        if (!Yii::$app->user->can('manage', ['model' => $model])) {
-            throw  new ForbiddenHttpException('Запрещено');
-        }
         $params = Yii::$app->request->queryParams;
         $id = $params['id'];
         $model = Article::find(['id' => $id])->one();
+        if (!Yii::$app->user->can('manage', ['model' => $model])) {
+            throw  new ForbiddenHttpException('Запрещено');
+        }
         $model->author_id = Yii::$app->user->id;
-        $model->title = $params['title'];
-        $model->content = $params['title'];
-        $model->date = $params['date'];
-        $model->category = $params['category'];
+        $model->load($params, '');
         $image = new Image;
         $image->uploadFromBase64($params['picture'], $model);
         if ($model->save()) {

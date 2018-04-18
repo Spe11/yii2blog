@@ -43,7 +43,6 @@ class Article extends \yii\db\ActiveRecord
             [['title', 'content', 'author_id', 'category'], 'required'],
             [['date'], 'date', 'format' => 'php:Y-m-d'],
             [['date'], 'default', 'value' => date('Y-m-d')],
-            [['picture'], 'string'],
             [['title'], 'string', 'max' => 200],
             [['content'], 'string', 'max' => 2000],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['author_id' => 'id']],
