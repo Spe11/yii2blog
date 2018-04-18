@@ -10,12 +10,10 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
-    'homeUrl' => '/yii2blog',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'ufqtuTPkVOhsTZ_l2FSkr1tn6ud0UJOu',
-            'baseUrl' => '/yii2blog',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
             ]
