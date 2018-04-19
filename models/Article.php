@@ -115,6 +115,6 @@ class Article extends \yii\db\ActiveRecord
     }
 
     public function getImage() {
-        return Yii::getAlias('@web').'/web/uploads/'.$this->picture;
+        return Yii::getAlias('@web').'/uploads/'.$this->picture;
     }
 }
