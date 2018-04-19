@@ -9,7 +9,7 @@ class Image extends Model {
     public $image;
 
     public function __construct() {
-        $this->path = Yii::getAlias('@app').'/web/uploads/';
+        $this->path = Yii::getAlias('@web').'/uploads/';
     }
 
     public function rules()
