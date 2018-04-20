@@ -6,6 +6,7 @@ use Yii;
 use yii\rest\ActiveController;
 use yii\web\Response;
 use yii\filters\auth\HttpBearerAuth;
+use yii\filters\auth\HttpBasicAuth;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
 use app\models\Article;
@@ -20,9 +21,11 @@ class ArticleController extends ActiveController
     {
         $behaviors = parent::behaviors();
         $behaviors['contentNegotiator']['formats']['application/json'] = Response::FORMAT_JSON;
-        $behaviors['authenticator'] = [
-             'class' => HttpBearerAuth::className(),
-         ];
+        $behaviors['authenticator']['only'] = ['create', 'update', 'delete'];
+        $behaviors['authenticator']['authMethods'] = [
+            HttpBasicAuth::className(),
+            HttpBearerAuth::className(),
+        ];
          $behaviors['access'] = [
              'class' => AccessControl::className(),
              'only' => ['create', 'update', 'delete'],
